@@ -10,6 +10,10 @@ public class CampaignViewer : MonoBehaviour
     [SerializeField] private Transform campaignListContent;
     [SerializeField] private GameObject campaignButtonPrefab;
 
+    [Header("Sprites")]
+    [SerializeField] private Sprite activeStatus;
+    [SerializeField] private Sprite finishedStatus;
+
     private List<Campaign> allCampaigns;
 
     private void Start()
@@ -48,12 +52,55 @@ public class CampaignViewer : MonoBehaviour
         foreach (Campaign campaign in allCampaigns)
         {
             GameObject campaignButton = Instantiate(campaignButtonPrefab, campaignListContent);
-            TextMeshProUGUI buttonText = campaignButton.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = campaign.Title;
 
-            Button button = campaignButton.GetComponentInChildren<Button>();
-            button.onClick.AddListener(() => DeleteCampaign(campaignButton, campaign));
+            foreach(var bg in campaignButton.GetComponentsInChildren<Image>())
+            {
+                if (bg.CompareTag("Status"))
+                {
+                    if (campaign.Status) bg.sprite = activeStatus;
+                    else bg.sprite = finishedStatus;
+                }
+            }
+
+            foreach(var tmp in campaignButton.GetComponentsInChildren<TextMeshProUGUI>())
+            {
+                if (tmp.CompareTag("Title"))
+                {
+                    tmp.text = campaign.Title;
+                }
+                else if (tmp.CompareTag("Status"))
+                {
+                    if (campaign.Status)
+                    {
+                        tmp.text = "Ativa";
+                        tmp.color = Color.black;
+                    }
+                    else
+                    {
+                        tmp.text = "Encerrada";
+                        tmp.color = Color.white;
+                    }
+                }
+            }
+
+            foreach (var btn in campaignButton.GetComponentsInChildren<Button>())
+            {
+                if (btn.CompareTag("Delete"))
+                {
+                    btn.onClick.AddListener(() => DeleteCampaign(campaignButton, campaign));
+                }
+                else if (btn.CompareTag("Copy"))
+                {
+                    btn.onClick.AddListener(() => CopyShareableLinkToClipboard(campaign));
+                }
+            }
         }
+    }
+
+    private void CopyShareableLinkToClipboard(Campaign campaign)
+    {
+        GUIUtility.systemCopyBuffer = campaign.ShareableLink;
+        Popup.Instance.SendSuccessMessage("Link compartilhável da campanha copiado com sucesso!");
     }
 
     private void DeleteCampaign(GameObject campaignButton, Campaign campaign)
