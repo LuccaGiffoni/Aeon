@@ -18,6 +18,6 @@ A aplicação permite criar campanhas, cada uma com um número máximo especific
 3. Execute o arquivo 'Aeon.exe'.
 
 ## Imagens
-![CampaignCreator](https://github.com/LuccaGiffoni/Aeon/assets/81778943/eed3d117-987a-4a36-af14-c31637976bf8)
 ![MainMenu](https://github.com/LuccaGiffoni/Aeon/assets/81778943/3d0a2082-49f9-4c8e-8582-1d53ab99b64f)
 ![CampaignViewer](https://github.com/LuccaGiffoni/Aeon/assets/81778943/c5c0e84c-b7e5-443c-9119-dbea684b7e80)
+![CampaignCreator](https://github.com/LuccaGiffoni/Aeon/assets/81778943/eed3d117-987a-4a36-af14-c31637976bf8)
