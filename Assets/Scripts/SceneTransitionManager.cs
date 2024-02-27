@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitionManager : MonoBehaviour
 {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     public void MoveToSceneByIndex(int sceneIndex)
     {
         StartCoroutine(MoveToScene(sceneIndex));
